@@ -1,12 +1,12 @@
 <!-- SLIDER -->
-<div class="px-4 pt-16">
+<div class="px-4 pt-16 md:px-0">
     <div
     id="carouselExampleIndicators"
     class="relative h-96"
     data-te-carousel-init
     data-te-carousel-slide>
     <div
-        class="absolute right-0 left-0 bottom-2 z-[2] flex list-none justify-start p-0"
+        class="absolute right-0 left-0 bottom-2 z-[2] flex list-none justify-start p-0 md:left-[700px]"
         data-te-carousel-indicators>
         <button
         type="button"
@@ -37,36 +37,39 @@
         data-te-carousel-active>
         <img
             src="./img/inception.jpg"
-            class="block w-full h-[240px] rounded object-cover"
+            class="block w-full h-[240px] rounded object-cover md:rounded-none md:h-[400px] "
             alt="Wild Landscape" />
-            <div class="py-4">
-                <h2 class="text-[#F5EDF0] text-xl uppercase">inception</h2>
-                <span class="text-[#F5EDF0]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis nisl dictum, tincidunt mauris a, tempor ex. Cras dignissim luctus sem et consectetur.</span>
+            <div class="py-2 text-[#F5EDF0] md:hidden">
+                <h2 class="text-lg font-bold">Inception</h2>
+                <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eros nisl, volutpat vel imperdiet tincidunt</p>
             </div>
+            <div class="hidden absolute inset-0 bg-gradient-to-b from-transparent to-[#191919] md:block"></div>
         </div>
         <div
         class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
         data-te-carousel-item>
         <img
             src="./img/avatar.jpg"
-            class="block w-full h-[240px] rounded object-cover"
+            class="block w-full h-[240px] rounded object-cover md:rounded-none md:h-[400px]"
             alt="Camera" />
-            <div class="py-4">
-                <h2 class="text-[#F5EDF0] text-xl uppercase">inception</h2>
-                <span class="text-[#F5EDF0]">Louis ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis nisl dictum, tincidunt mauris a, tempor ex. Cras dignissim luctus sem et consectetur.</span>
+            <div class="py-2 text-[#F5EDF0] md:hidden">
+                <h2 class="text-lg font-bold">Inception</h2>
+                <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eros nisl, volutpat vel imperdiet tincidunt</p>
             </div>
+            <div class="hidden absolute inset-0 bg-gradient-to-b from-transparent to-[#191919] md:block"></div>
         </div>
         <div
         class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none"
         data-te-carousel-item>
         <img
             src="./img/interstellar.jpg"
-            class="block w-full h-[240px] rounded object-cover"
+            class="block w-full h-[240px] rounded object-cover md:rounded-none md:h-[400px]"
             alt="Exotic Fruits" />
-            <div class="py-4">
-                <h2 class="text-[#F5EDF0] text-xl uppercase">inception</h2>
-                <span class="text-[#F5EDF0]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis nisl dictum, tincidunt mauris a, tempor ex. Cras dignissim luctus sem et consectetur.</span>
+            <div class="py-2 text-[#F5EDF0] md:hidden">
+                <h2 class="text-lg font-bold">Inception</h2>
+                <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eros nisl, volutpat vel imperdiet tincidunt</p>
             </div>
+            <div class="hidden absolute inset-0 bg-gradient-to-b from-transparent to-[#191919] md:block"></div>
         </div>
     </div>
     </div>

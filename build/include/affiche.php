@@ -1,7 +1,7 @@
 <!-- AFFICHE -->
-<div class="flex flex-col">
+<div class="flex flex-col md:px-8">
 <h1
-        class="pl-4 flex pt-9 pb-3 lg:px-20 md:px-10 lg:mx-40 md:mx-20 font-bold text-3xl text-[#FFD447] uppercase"
+        class="px-4 flex pt-9 pb-3 font-bold text-3xl text-[#FFD447] uppercase"
       >
         Films à l'affiche
       </h1>
@@ -10,7 +10,7 @@
         class="flex overflow-x-scroll pb-10 hide-scroll-bar"
       >
         <div
-          class="flex flex-nowrap lg:ml-40 md:ml-20"
+          class="flex flex-nowrap"
         >
           <div class="inline-block pl-4">
             <div
