@@ -2,7 +2,7 @@
 <!--
 Change class "fixed" to "sticky" in "navbar" (l. 33) so the navbar doesn't hide any of your page content!
 -->
-
+<?php session_start(); ?>
 <style>
     ul.breadcrumb li+li::before {
         content: "\276F";
@@ -26,7 +26,8 @@ Change class "fixed" to "sticky" in "navbar" (l. 33) so the navbar doesn't hide 
 </style>
 
 <!-- Navbar start -->
-<nav id="navbar" class="fixed top-0 z-40 flex w-full h-16 flex-row justify-between bg-[#191919]/50 px-4 sm:justify-between duration-300 ease-in-out">
+<nav id="navbar" class="fixed top-0 z-40 flex w-full h-16 flex-col justify-between bg-[#191919]/50 px-4 sm:justify-between duration-300 ease-in-out md:px-12">
+  <div class="flex w-full h-16 flex-row justify-between">
     <button id="btnSidebarToggler" type="button" class="py-4 text-2xl text-white hover:text-gray-200 md:hidden">
         <svg id="navClosed" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="h-8 w-8">
@@ -39,7 +40,7 @@ Change class "fixed" to "sticky" in "navbar" (l. 33) so the navbar doesn't hide 
     </button>
 
     <div class="py-4">
-      <a href="C:\wamp64\www\cinemet\build\index.php"><img src="/cinemet/build/img/allosimplon.png" alt="" class="h-10 w-10"></a>
+      <a href="/cinemet/build/index.php"><img src="/cinemet/build/img/allosimplon.png" alt="" class="h-10 w-10"></a>
     </div>
 
     <div class="hidden md:block w-full py-4 px-16">
@@ -55,13 +56,29 @@ Change class "fixed" to "sticky" in "navbar" (l. 33) so the navbar doesn't hide 
     </div>
 
     <div class="py-4 text-2xl text-white hover:text-gray-200">
-      <a class="open-login"><i class="bi bi-person-circle"></i></a>
+        <?php
+
+        if (isset($_SESSION['usermail'])) {
+          // Get the first letter of the session username
+          $firstLetter = substr($_SESSION['username'], 0, 1);
+
+          // var_dump($firstLetter);
+          // die;
+
+          // SI USER EST CONNECTÉ, REDIRECTION SUR L'ESPACE PERSO AVEC L'EMAIL DE SESSION EN PARAMETRE URL
+          echo '<a href="/cinemet/build/treatment/user-space.php?usermail=' . $_SESSION['usermail'] . 'username=' . $_SESSION['username'] . ' userID=' . $_SESSION['userID'] . '"><span class="inline-flex items-end justify-center text-[#FFD447] border border-[#FFD447] rounded-full h-8 w-8">' . $firstLetter . '</span></a>';
+        } else {
+          // SI USER N'EST PAS CONNECTÉ, OUVERTURE DU DIALOG
+          echo '<a class="open-login"><i class="bi bi-person-circle"></i></a>';
+        }
+      ?>
     </div>
+  </div>
 </nav>
 <!-- Navbar end -->
 
 <!-- Sidebar start-->
-<div id="containerSidebar" class="z-40">
+<div id="containerSidebar" class="z-40 md:hidden">
     <div class="navbar-menu relative z-40">
         <nav id="sidebar"
             class="fixed left-0 bottom-0 flex w-3/4 -translate-x-full flex-col overflow-y-auto bg-gray-700 pt-6 pb-8 sm:max-w-xs lg:w-80">
@@ -149,14 +166,14 @@ Change class "fixed" to "sticky" in "navbar" (l. 33) so the navbar doesn't hide 
       </div>
       
       <div id="login-form">
-        <form action="#" method="POST">
+        <form action="./treatment/login.php" method="POST">
           <div class="my-5 px-2">
             <input class="bg-[#191919] appearance-none border-b  w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-              id="email" type="email" placeholder="Entrez votre email">
+              id="email" type="email" name="email" placeholder="Entrez votre email" required>
           </div>
           <div class="my-5 px-2">
             <input class="bg-[#191919] appearance-none border-b  w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-              id="password" type="password" placeholder="Entrez votre mot de passe">
+              id="password" type="password" name="password" placeholder="Entrez votre mot de passe" required>
           </div>
           <button class="bg-[#406E8E] hover:bg-blue-700 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
             type="submit">
@@ -165,18 +182,22 @@ Change class "fixed" to "sticky" in "navbar" (l. 33) so the navbar doesn't hide 
         </form>
       </div>
       <div id="register-form" style="display:none;">
-        <form action="#" method="POST">
+        <form action="./treatment/sign-in.php" method="POST">
           <div class="my-5 px-2">
             <input class="bg-[#191919] appearance-none border-b  w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-              id="name" type="text" placeholder="Entrez votre nom">
+              id="name" type="text" name="name" placeholder="Entrez votre nom" required>
           </div>
           <div class="my-5 px-2">
             <input class="bg-[#191919] appearance-none border-b  w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-              id="email" type="email" placeholder="Entrez votre email">
+              id="email" type="email" name="email" placeholder="Entrez votre email"required>
           </div>
           <div class="my-5 px-2">
             <input class="bg-[#191919] appearance-none border-b  w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-              id="password" type="password" placeholder="Entrez votre mot de passe">
+              id="password" type="password" name="password" placeholder="Entrez votre mot de passe" required>
+          </div>
+          <div class="my-5 px-2">
+            <input class="bg-[#191919] appearance-none border-b  w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+              id="password_confirmation" type="password" name="password_confirmation" placeholder="Entrez votre mot de passe" required>
           </div>
           <button class="bg-[#406E8E] hover:bg-blue-700 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
             type="submit">

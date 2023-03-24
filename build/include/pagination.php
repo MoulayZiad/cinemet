@@ -51,137 +51,290 @@
       >
     </li>
   </ul>
-
-  <div>
+  </div>
     <div
       class="hidden opacity-0 opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
       id="tabs-home3"
       role="tabpanel"
       data-te-tab-active
       aria-labelledby="tabs-home-tab3">
-        <div class="flex flex-col gap-4 md:flex-row md:overflow-x-scroll">
-          <div class="flex-shrink-0 w-full">
-            <a href="../content/movie.php">
-                <div class="flex">
-                <img src="./img/inception_poster" alt="Card image" class="w-1/5 h-auto rounded-md">
-                <div class="px-4 py-2 text-[#F5EDF0]">
-                    <h2 class="text-lg font-bold">Inception</h2>
-                    <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eros nisl, volutpat vel imperdiet tincidunt</p>
-                </div>
-                </div>
-            </a> 
+
+      <div class="grid grid-cols-1 mx-4 mb-4 md:mx-12 lg:grid-cols-2 lg:gap-4">
+        <div class="relative">
+          <div>
+            <img src="./img/inception" alt="" class="rounded-lg object-cover w-full h-auto">
           </div>
-          <div class="flex-shrink-0 w-full">
-            <a href="../content/movie.php">
-                <div class="flex">
-                <img src="./img/inception_poster" alt="Card image" class="w-1/5 h-auto rounded-md">
-                <div class="px-4 py-2 text-[#F5EDF0]">
-                    <h2 class="text-lg font-bold">Inception</h2>
-                    <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eros nisl, volutpat vel imperdiet tincidunt</p>
-                </div>
-                </div>
-            </a> 
-          </div>
-          <div class="flex-shrink-0 w-full">
-            <a href="../content/movie.php">
-                <div class="flex">
-                <img src="./img/inception_poster" alt="Card image" class="w-1/5 h-auto rounded-md">
-                <div class="px-4 py-2 text-[#F5EDF0]">
-                    <h2 class="text-lg font-bold">Inception</h2>
-                    <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eros nisl, volutpat vel imperdiet tincidunt</p>
-                </div>
-                </div>
-            </a> 
+          <div class="absolute bottom-0 left-0 w-full p-4 bg-[#191919] bg-opacity-50 text-white">
+            <h2 class="text-xl font-bold mb-2">Inception</h2>
+            <p>
+              2027 - Science-fiction
+            </p>
           </div>
         </div>
-      </a>
+        <div class="relative hidden lg:block">
+          <div>
+            <img src="./img/inception" alt="" class="rounded-lg object-cover w-full h-auto">
+          </div>
+          <div class="absolute bottom-0 left-0 w-full p-4 bg-[#191919] bg-opacity-50 text-white">
+            <h2 class="text-xl font-bold mb-2">Inception</h2>
+            <p>
+              2027 - Science-fiction
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="flex overflow-x-scroll pb-10 hide-scroll-bar lg:grid lg:grid-cols-3"
+      >
+        <div
+          class="w-full md:flex md:flex-nowrap md:ml-8"
+        >
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+        </div>
+      </div>
     </div>
     <div
       class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
       id="tabs-profile3"
       role="tabpanel"
       aria-labelledby="tabs-profile-tab3">
-        <div class="flex flex-col gap-4 md:flex-row md:overflow-x-scroll">
-          <div class="flex-shrink-0 w-full">
-            <a href="../content/movie.php">
-                <div class="flex">
-                <img src="./img/inception_poster" alt="Card image" class="w-1/5 h-auto rounded-md">
-                <div class="px-4 py-2 text-[#F5EDF0]">
-                    <h2 class="text-lg font-bold">Inception</h2>
-                    <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eros nisl, volutpat vel imperdiet tincidunt</p>
-                </div>
-                </div>
-            </a> 
+
+      <div class="grid grid-cols-1 mx-4 mb-4 md:mx-12 lg:grid-cols-2 lg:gap-4">
+        <div class="relative">
+          <div>
+            <img src="./img/avatar" alt="" class="rounded-lg object-cover w-full h-auto">
           </div>
-          <div class="flex-shrink-0 w-full">
-            <a href="../content/movie.php">
-                <div class="flex">
-                <img src="./img/inception_poster" alt="Card image" class="w-1/5 h-auto rounded-md">
-                <div class="px-4 py-2 text-[#F5EDF0]">
-                    <h2 class="text-lg font-bold">Inception</h2>
-                    <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eros nisl, volutpat vel imperdiet tincidunt</p>
-                </div>
-                </div>
-            </a> 
-          </div>
-          <div class="flex-shrink-0 w-full">
-            <a href="../content/movie.php">
-                <div class="flex">
-                <img src="./img/inception_poster" alt="Card image" class="w-1/5 h-auto rounded-md">
-                <div class="px-4 py-2 text-[#F5EDF0]">
-                    <h2 class="text-lg font-bold">Inception</h2>
-                    <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eros nisl, volutpat vel imperdiet tincidunt</p>
-                </div>
-                </div>
-            </a> 
+          <div class="absolute bottom-0 left-0 w-full p-4 bg-[#191919] bg-opacity-50 text-white">
+            <h2 class="text-xl font-bold mb-2">Avatar</h2>
+            <p>
+              2027 - Science-fiction
+            </p>
           </div>
         </div>
-      </a>
+        <div class="relative hidden lg:block">
+          <div>
+            <img src="./img/avatar" alt="" class="rounded-lg object-cover w-full h-auto">
+          </div>
+          <div class="absolute bottom-0 left-0 w-full p-4 bg-[#191919] bg-opacity-50 text-white">
+            <h2 class="text-xl font-bold mb-2">Avatar</h2>
+            <p>
+              2027 - Science-fiction
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="flex overflow-x-scroll pb-10 hide-scroll-bar"
+      >
+      <div
+          class="grid grid-cols-1 w-full md:flex md:flex-nowrap md:ml-8"
+        >
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+        </div>
+      </div>
     </div>
     <div
       class="hidden opacity-0 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
       id="tabs-messages3"
       role="tabpanel"
       aria-labelledby="tabs-profile-tab3">
-        <div class="flex flex-col gap-4 md:flex-row md:overflow-x-scroll">
-          <div class="flex-shrink-0 w-full">
-            <a href="../content/movie.php">
-                <div class="flex">
-                <img src="./img/inception_poster" alt="Card image" class="w-1/5 h-auto rounded-md">
-                <div class="px-4 py-2 text-[#F5EDF0]">
-                    <h2 class="text-lg font-bold">Inception</h2>
-                    <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eros nisl, volutpat vel imperdiet tincidunt</p>
-                </div>
-                </div>
-            </a> 
+      
+      <div class="grid grid-cols-1 mx-4 mb-4 md:mx-12 lg:grid-cols-2 lg:gap-4">
+        <div class="relative">
+          <div>
+            <img src="./img/interstellar" alt="" class="rounded-lg object-cover w-full h-auto">
           </div>
-          <div class="flex-shrink-0 w-full">
-            <a href="../content/movie.php">
-                <div class="flex">
-                <img src="./img/inception_poster" alt="Card image" class="w-1/5 h-auto rounded-md">
-                <div class="px-4 py-2 text-[#F5EDF0]">
-                    <h2 class="text-lg font-bold">Inception</h2>
-                    <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eros nisl, volutpat vel imperdiet tincidunt</p>
-                </div>
-                </div>
-            </a> 
-          </div>
-          <div class="flex-shrink-0 w-full">
-            <a href="../content/movie.php">
-                <div class="flex">
-                <img src="./img/inception_poster" alt="Card image" class="w-1/5 h-auto rounded-md">
-                <div class="px-4 py-2 text-[#F5EDF0]">
-                    <h2 class="text-lg font-bold">Inception</h2>
-                    <p class="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eros nisl, volutpat vel imperdiet tincidunt</p>
-                </div>
-                </div>
-            </a> 
+          <div class="absolute bottom-0 left-0 w-full p-4 bg-[#191919] bg-opacity-50 text-white">
+            <h2 class="text-xl font-bold mb-2">Interstellar</h2>
+            <p>
+              2027 - Science-fiction
+            </p>
           </div>
         </div>
-      </a>
+        <div class="relative hidden lg:block">
+          <div>
+            <img src="./img/interstellar" alt="" class="rounded-lg object-cover w-full h-auto">
+          </div>
+          <div class="absolute bottom-0 left-0 w-full p-4 bg-[#191919] bg-opacity-50 text-white">
+            <h2 class="text-xl font-bold mb-2">Interstellar</h2>
+            <p>
+              2027 - Science-fiction
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="flex overflow-x-scroll pb-10 hide-scroll-bar"
+      >
+      <div
+          class="grid grid-cols-1 w-full md:flex md:flex-nowrap md:ml-8"
+        >
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+          <div class="flex px-4 my-4 gap-4 md:inline-block md:my-0 md:px-0 md:pl-4">
+            <div
+              class="min-h-[114px] max-h-[114px] min-w-[76px] max-w-[76px] overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out md:min-h-[192px] md:max-h-[192px] md:min-w-[128px] md:max-w-[128px]"
+            ><img src="./img/inception_poster" class="h-full" alt=""></div>
+            <p class="text-white md:hidden">Duis non quam ultricies, rhoncus purus eget, condimentum purus. Aliquam erat volutpat. Praesent in consequat lectus.</p>
+          </div>
+        </div>
+      </div>
   </div>
-</div> 
-</div>
 
 <script>
     window.addEventListener("load", function(event) {
