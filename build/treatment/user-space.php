@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html class="w-full h-full m-0 p-0" lang="en">
 <head>
@@ -10,35 +11,20 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Document</title>
 </head>
-<body class="bg-[#191919] w-full h-full m-0 p-0">
-
-<?php 
-require('config/pdo.php');
-require('config/functions.php');
-?>
+<body class="bg-white w-full h-full m-0 p-0">
     
-<!-- INCLUDE NAV (0) -->
-<?php include("include/nav.php") 
-?>    
+    <?php
+    require('../config/pdo.php');
 
-<!-- INCLUDE HEADER (1) -->
-<?php include("include/header.php") 
-?>  
+    var_dump( $_SESSION['usermail']);
+    var_dump( $_SESSION['username']);
+    var_dump( $_SESSION['userID']);
+    ?>
 
-<!-- INCLUDE AFFICHE (2) -->
-<?php include("include/affiche.php") 
-?>
+    <a href="logout.php">Se deconnecter</a><br>
+    <a href="/cinemet/build/index.php">Retourner à l'accueil</a><br>
+    <a href="../content/crud.php">Interface administrateur</a>
 
-<!-- INCLUDE PAGINATION (3) -->
-<?php include("include/pagination.php") 
-?> 
-
-<!-- INCLUDE FOOTER (4) -->
-<?php include("include/footer.php") 
-?> 
-
-
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js%22%3E"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
     <script src="https://kit.fontawesome.com/77aa9e7f49.js" crossorigin="anonymous"></script>
