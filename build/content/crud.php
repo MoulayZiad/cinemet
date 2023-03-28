@@ -27,85 +27,341 @@ require('../config/functions.php');
         <!-- Start coding here -->
         <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-4 py-3">Affiche</th>
-                            <th scope="col" class="px-4 py-3">Titre</th>
-                            <th scope="col" class="px-4 py-3">Genre</th>
-                            <th scope="col" class="px-4 py-3">Réalisateur</th>
-                            <th scope="col" class="px-4 py-3">Acteurs</th>
-                            <th scope="col" class="px-4 py-3">
-                                <span class="sr-only">Actions</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-4 py-3">Affiche</th>
+                        <th scope="col" class="px-4 py-3">Titre</th>
+                        <th scope="col" class="px-4 py-3">Date</th>
+                        <th scope="col" class="px-4 py-3">Genre</th>
+                        <th scope="col" class="px-4 py-3">Réalisateur</th>
+                        <th scope="col" class="px-4 py-3">Acteurs</th>
+                        <th scope="col" class="px-4 py-3">Details</th>
+                        <th scope="col" class="px-4 py-3">Actions</th>
+                        <th scope="col" class="px-4 py-3">
+                            <span class="sr-only">Actions</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                        <?php
-                        $stmt = $pdo->query('SELECT * FROM film');
-                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                            echo '<tr class="border-b dark:border-gray-700">';
-                            echo '<td class="px-4 py-3"> <img src="data:image/jpeg;base64,'.getFilmPoster($pdo,  $row['titre_film']).'" alt="Avatar" /></td>';
-                            echo '<td class="px-4 py-3">' . $row['titre_film'] . '</td>';
-                            echo '<td class="px-4 py-3">' . $row['genre_film'] . '</td>';
-                            echo '</td>';
-                            echo '</tr>';
-                        }
-                        ?>
+                <?php
+                $stmt = $pdo->query('SELECT f.*, r.nom_realisateur, r.prenom_realisateur, GROUP_CONCAT(CONCAT(a.prenom_acteur, " ", a.nom_acteur) SEPARATOR ", ") AS noms_acteurs
+                                        FROM film f
+                                        JOIN realisateur_film rf ON f.id_film = rf.id_film
+                                        JOIN realisateur r ON r.id_realisateur = rf.id_realisateur
+                                        JOIN acteur_film af ON f.id_film = af.id_film
+                                        JOIN acteur a ON a.id_acteur = af.id_acteur
+                                        GROUP BY f.id_film');
+
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    echo '<tr class="border-b dark:border-gray-700">';
+                    echo '<td class="px-4 py-3"> <img src="data:image/jpeg;base64,'.getFilmPoster($pdo,  $row['nom_film']).'" alt="Affiche" /></td>';
+                    echo '<td class="px-4 py-3">' . $row['titre_film'] . '</td>';
+                    echo '<td class="px-4 py-3">' . $row['date_film'] . '</td>';
+                    echo '<td class="px-4 py-3">' . $row['genre_film'] . '</td>';
+                    echo '<td class="px-4 py-3">' . $row['prenom_realisateur'] . ' ' . $row['nom_realisateur'] . '</td>';
+                    echo '<td class="px-4 py-3">' . $row['noms_acteurs'] . '</td>';
+
+                    // Add any other actions you want to perform
+                    echo '<td class="px-4 py-3 text-center">
+                        <button class="text-blue-500 hover:text-blue-700 my-4" onclick="toggleDetails(this)">Show More</button>';
+                    echo '<div class="hidden">';
+                    echo '<p class="my-4">Durée : ' . $row['duree_film'] . '</p>';
+                    echo '<p class="my-4">Résumé : ' . $row['synopsis_film'] . '</p>';
+                    echo '<p class="my-4">Image : </p><img src="data:image/jpeg;base64,'.getFilmImage($pdo,  $row['nom_film']).'" alt="Affiche" />';
+                    echo '</div></td>'; 
+                    ?>
+
+                    <td class="px-4 py-3">
+                        <div class="text-center">
+                            <!-- Modal toggle -->
+                            <button data-modal-target="editModal<?=$row['id_film']?>" data-modal-toggle="editModal<?=$row['id_film']?>" class="my-4 text-yellow-500 hover:text-yellow-700">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <br>
+                            <!-- Modal toggle -->
+                            <button data-modal-target="deleteModal<?=$row['id_film']?>" data-modal-toggle="deleteModal<?=$row['id_film']?>" class="my-4 text-yellow-500 hover:text-yellow-700">
+                                <i class="bi bi-trash my-4 text-red-500 hover:text-red-700"></i>
+                            </button>
+                        </div>
                         
-                    </tbody>
-                </table>
+                        <!-- Edit modal -->
+                        <div id="editModal<?=$row['id_film']?>" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full hidden">
+                            <div class="relative w-full h-full max-w-2xl md:h-auto">
+                                <!-- Modal content -->
+                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                    <!-- Modal header -->
+                                    <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                            Modifier un film
+                                        </h3>
+                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="editModal<?=$row['id_film']?>">
+                                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="p-6 space-y-6">
+                                    <form method="POST" action="../content/edit/edit_movie.php">
+                                        <div class="mb-4">
+                                        <label class="block text-gray-700 font-bold mb-2" for="Titre">
+                                            Titre
+                                        </label>
+                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Titre" id="Titre" type="text" required placeholder="Titre" value="<?= $row['titre_film']?>">
+                                        </div>
+                                        <div class="mb-4">
+                                        <label class="block text-gray-700 font-bold mb-2" for="Affiche">
+                                            Affiche
+                                        </label>
+                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Affiche" id="Affiche" type="file" required placeholder="Affiche">
+                                        </div>
+                                        <div class="mb-4">
+                                        <label class="block text-gray-700 font-bold mb-2" for="Date">
+                                            Date
+                                        </label>
+                                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Année" name="Année" value="<?=$row['date_film']?>">
+                                            <option value="">Année</option>
+                                            <option value="1940">1940</option>
+                                            <option value="1941">1941</option>
+                                            <option value="1942">1942</option>
+                                            <option value="1943">1943</option>
+                                            <option value="1944">1944</option>
+                                            <option value="1945">1945</option>
+                                        </select>
+                                        </div>
+                                        <div class="mb-4">
+                                        <label class="block text-gray-700 font-bold mb-2" for="Genre">
+                                            Genre
+                                        </label>
+                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Genre" id="Genre" type="text" required placeholder="Genre" value="<?=$row['genre_film']?>">
+                                        </div>
+                                        <div class="mb-4">
+                                        <label class="block text-gray-700 font-bold mb-2" for="Realisateur">
+                                            Realisateur
+                                        </label>
+                                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Realisateur" id="Realisateur" required>
+                                            <option value="">Choisir un réalisateur</option>
+                                            <?php
+                                                // Prepare and execute a SQL query to retrieve realisateurs from the database
+                                                $query = $pdo->prepare('SELECT * FROM realisateur');
+                                                $query->execute();
+                                                $realisateurs = $query->fetchAll(PDO::FETCH_ASSOC);
+                                                
+                                                // Loop through the realisateurs and create an option for each one
+                                                foreach ($realisateurs as $realisateur) { ?>
+                                                    <option value="<?=$realisateur['id_realisateur']?>"><?=$realisateur['nom_realisateur']?></option>';
+                                                <?php }
+                                            ?>
+                                        </select>
+                                        <p>Ou</p>
+                                        <label>
+                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Realisateur" id="Realisateur" type="text" required placeholder="Insérer un nouveau realisateur">
+                                        </label>
+                                        </div>
+                                        <div class="mb-4">
+                                        <label class="block text-gray-700 font-bold mb-2" for="Durée">
+                                            Durée
+                                        </label>
+                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Durée" id="Durée" type="text" required placeholder="Durée" value="<?=$row['duree_film']?>">
+                                        </div>
+                                        <div class="mb-4">
+                                        <label class="block text-gray-700 font-bold mb-2" for="Synopsis">
+                                            Synopsis
+                                        </label>
+                                        <textarea class="overflow-scroll shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Synopsis" id="Synopsis" type="text" required placeholder="Synopsis"><?=$row['synopsis_film']?></textarea>
+                                        </div>
+                                        <div class="mb-4">
+                                        <label class="block text-gray-700 font-bold mb-2" for="Image">
+                                            Image
+                                        </label>
+                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Image" id="Image" type="file" required placeholder="Image">
+                                        </div>
+                                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Modifier</button>
+                                    </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Delete modal -->
+                        <div id="deleteModal<?=$row['id_film']?>" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full hidden">
+                            <div class="relative w-full h-full max-w-2xl md:h-auto">
+                                <!-- Modal content -->
+                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                    <!-- Modal header -->
+                                    <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Confirmez la suppression de ce film : <?= $row['titre_film']?> 
+                                        </h3>
+                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="deleteModal<?=$row['id_film']?>">
+                                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <div class="p-6 space-y-6">
+                                    <form method="POST" action="../content/delete/delete_movie.php">
+                                        <input type="hidden" name="movie_id" value="<?=$row['id_film']?>">
+                                        <button type="submit" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Supprimer</button>
+                                    </form>
+                                    <button data-modal-hide="deleteModal<?=$row['id_film']?>" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Annuler</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+
+                    <?php
+                    echo '</tr>';
+                    }
+                    ?>
+
+
+                    <td class="px-4 py-3">
+                        <!-- Modal toggle -->
+                    <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                    <i class="bi bi-plus-circle mx-4"></i>Ajouter film
+                    </button>
+
+                    <!-- Main modal -->
+                    <div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full hidden">
+                        <div class="relative w-full h-full max-w-2xl md:h-auto">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Ajoutez un film
+                                    </h3>
+                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
+                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <div class="p-6 space-y-6">
+                                <form method="POST" action="../content/add/add_movie.php">
+                                    <div class="mb-4">
+                                    <label class="block text-gray-700 font-bold mb-2" for="Titre">
+                                        Titre
+                                    </label>
+                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Titre" id="Titre" type="text" required placeholder="Titre">
+                                    </div>
+                                    <div class="mb-4">
+                                    <label class="block text-gray-700 font-bold mb-2" for="Affiche">
+                                        Affiche
+                                    </label>
+                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Affiche" id="Affiche" type="file" required placeholder="Affiche">
+                                    </div>
+                                    <div class="mb-4">
+                                    <label class="block text-gray-700 font-bold mb-2" for="Date">
+                                        Date
+                                    </label>
+                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Date" id="Date" type="date" required placeholder="Date">
+                                    </div>
+                                    <div class="mb-4">
+                                    <label class="block text-gray-700 font-bold mb-2" for="Genre">
+                                        Genre
+                                    </label>
+                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Genre" id="Genre" type="text" required placeholder="Genre">
+                                    </div>
+                                    <div class="mb-4">
+                                    <label class="block text-gray-700 font-bold mb-2" for="Realisateur">
+                                        Realisateur
+                                    </label>
+                                    <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Realisateur" id="Realisateur" required>
+                                        <option value="">Choisir un réalisateur</option>
+                                        <?php
+                                            // Prepare and execute a SQL query to retrieve realisateurs from the database
+                                            $query = $pdo->prepare('SELECT * FROM realisateur');
+                                            $query->execute();
+                                            $realisateurs = $query->fetchAll(PDO::FETCH_ASSOC);
+                                            
+                                            // Loop through the realisateurs and create an option for each one
+                                            foreach ($realisateurs as $realisateur) { ?>
+                                                <option value="<?=$realisateur['id_realisateur']?>"><?=$realisateur['nom_realisateur']?></option>';
+                                            <?php }
+                                        ?>
+                                    </select>
+                                    <p>Ou</p>
+                                    <label>
+                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Realisateur" id="Realisateur" type="text" placeholder="Insérer un nouveau realisateur">
+                                    </label>
+                                    </div>
+                                    <div class="mb-4">
+                                    <label class="block text-gray-700 font-bold mb-2" for="Durée">
+                                        Durée
+                                    </label>
+                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Durée" id="Durée" type="text" required placeholder="Durée">
+                                    </div>
+                                    <div class="mb-4">
+                                    <label class="block text-gray-700 font-bold mb-2" for="Synopsis">
+                                        Synopsis
+                                    </label>
+                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Synopsis" id="Synopsis" type="text" required placeholder="Synopsis">
+                                    </div>
+                                    <div class="mb-4">
+                                    <label class="block text-gray-700 font-bold mb-2" for="Image">
+                                        Image
+                                    </label>
+                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Image" id="Image" type="file" required placeholder="Image">
+                                    </div>
+                                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ajouter</button>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </td>
+
+
+
+                
+
+                </tbody>
+            </table>
+
             </div>
-            <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4" aria-label="Table navigation">
-                <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                    Showing
-                    <span class="font-semibold text-gray-900 dark:text-white">1-10</span>
-                    of
-                    <span class="font-semibold text-gray-900 dark:text-white">1000</span>
-                </span>
-                <ul class="inline-flex items-stretch -space-x-px">
-                    <li>
-                        <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Previous</span>
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                    </li>
-                    <li>
-                        <a href="#" aria-current="page" class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-                    </li>
-                    <li>
-                        <a href="#" class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <span class="sr-only">Next</span>
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
     </section>
 
 
+    <script>
+        
+    function toggleDetails(button) {
+    var details = button.nextElementSibling;
+    if (details.classList.contains('hidden')) {
+        details.classList.remove('hidden');
+        button.innerHTML = 'Show Less';
+    } else {
+        details.classList.add('hidden');
+        button.innerHTML = 'Show More';
+    }
+    }
+
+    function toggleDetails(button) {
+    var details = button.nextElementSibling;
+    details.classList.toggle("hidden");
+    if (button.textContent === "Show More") {
+        button.textContent = "Show Less";
+    } else {
+        button.textContent = "Show More";
+    }
+    }
+
+    function editFilm(id_film) {
+    var form = document.getElementById("editForm" + id_film);
+    form.classList.toggle("hidden");
+    }
+
+    </script>
+
 
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js%22%3E"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
     <script src="https://kit.fontawesome.com/77aa9e7f49.js" crossorigin="anonymous"></script>
 
