@@ -122,7 +122,7 @@ function getActorsFromMovie($pdo, $movieId) {
                            WHERE acteur_film.id_film = :movieId');
     $stmt->bindValue(':movieId', $movieId);
     $stmt->execute();
-  
+
     // Fetch all rows and return them as an array
     return $stmt->fetchAll();
 }

@@ -54,24 +54,22 @@ require('../config/functions.php');
                                         JOIN acteur a ON a.id_acteur = af.id_acteur
                                         GROUP BY f.id_film');
 
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                    echo '<tr class="border-b dark:border-gray-700">';
-                    echo '<td class="px-4 py-3"> <img src="data:image/jpeg;base64,'.getFilmPoster($pdo,  $row['nom_film']).'" alt="Affiche" /></td>';
-                    echo '<td class="px-4 py-3">' . $row['titre_film'] . '</td>';
-                    echo '<td class="px-4 py-3">' . $row['date_film'] . '</td>';
-                    echo '<td class="px-4 py-3">' . $row['genre_film'] . '</td>';
-                    echo '<td class="px-4 py-3">' . $row['prenom_realisateur'] . ' ' . $row['nom_realisateur'] . '</td>';
-                    echo '<td class="px-4 py-3">' . $row['noms_acteurs'] . '</td>';
-
-                    // Add any other actions you want to perform
-                    echo '<td class="px-4 py-3 text-center">
-                        <button class="text-blue-500 hover:text-blue-700 my-4" onclick="toggleDetails(this)">Show More</button>';
-                    echo '<div class="hidden">';
-                    echo '<p class="my-4">Durée : ' . $row['duree_film'] . '</p>';
-                    echo '<p class="my-4">Résumé : ' . $row['synopsis_film'] . '</p>';
-                    echo '<p class="my-4">Image : </p><img src="data:image/jpeg;base64,'.getFilmImage($pdo,  $row['nom_film']).'" alt="Affiche" />';
-                    echo '</div></td>'; 
-                    ?>
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { ?>
+                    <tr class="border-b dark:border-gray-700">
+                    <td class="px-4 py-3"> <img src="upload/<?=$row['affiche_film']?>" alt="Affiche" /></td>
+                    <td class="px-4 py-3"><?=$row['titre_film']?></td>
+                    <td class="px-4 py-3"><?=$row['date_film']?></td>
+                    <td class="px-4 py-3"><?=$row['genre_film']?></td>
+                    <td class="px-4 py-3"><?=$row['prenom_realisateur'].' '.$row['nom_realisateur']?></td>
+                    <td class="px-4 py-3"><?=$row['noms_acteurs']?></td>
+                    <?php var_dump($row['affiche_film']); ?>
+                    <td class="px-4 py-3 text-center">
+                        <button class="text-blue-500 hover:text-blue-700 my-4" onclick="toggleDetails(this)">Show More</button>
+                    <div class="hidden">
+                    <p class="my-4">Durée : <?=$row['duree_film']?></p>
+                    <p class="my-4">Résumé : <?=$row['synopsis_film']?></p>
+                    <p class="my-4">Image : </p><img src="upload/<?=$row['img_film']?>" alt="Affiche" />
+                    </div></td> 
 
                     <td class="px-4 py-3">
                         <div class="text-center">
@@ -120,15 +118,7 @@ require('../config/functions.php');
                                         <label class="block text-gray-700 font-bold mb-2" for="Date">
                                             Date
                                         </label>
-                                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Année" name="Année" value="<?=$row['date_film']?>">
-                                            <option value="">Année</option>
-                                            <option value="1940">1940</option>
-                                            <option value="1941">1941</option>
-                                            <option value="1942">1942</option>
-                                            <option value="1943">1943</option>
-                                            <option value="1944">1944</option>
-                                            <option value="1945">1945</option>
-                                        </select>
+                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="date" name="Date" id="">
                                         </div>
                                         <div class="mb-4">
                                         <label class="block text-gray-700 font-bold mb-2" for="Genre">
@@ -154,10 +144,6 @@ require('../config/functions.php');
                                                 <?php }
                                             ?>
                                         </select>
-                                        <p>Ou</p>
-                                        <label>
-                                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Realisateur" id="Realisateur" type="text" required placeholder="Insérer un nouveau realisateur">
-                                        </label>
                                         </div>
                                         <div class="mb-4">
                                         <label class="block text-gray-700 font-bold mb-2" for="Durée">
@@ -242,7 +228,13 @@ require('../config/functions.php');
                                 </div>
                                 <!-- Modal body -->
                                 <div class="p-6 space-y-6">
-                                <form method="POST" action="../content/add/add_movie.php">
+                                <form enctype="multipart/form-data" method="POST" action="../content/add/add_movie.php">
+                                    <div class="mb-4">
+                                    <label class="block text-gray-700 font-bold mb-2" for="Nom">
+                                        Nom
+                                    </label>
+                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Nom" id="Nom" type="text" required placeholder="Nom">
+                                    </div>
                                     <div class="mb-4">
                                     <label class="block text-gray-700 font-bold mb-2" for="Titre">
                                         Titre
@@ -250,10 +242,10 @@ require('../config/functions.php');
                                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Titre" id="Titre" type="text" required placeholder="Titre">
                                     </div>
                                     <div class="mb-4">
-                                    <label class="block text-gray-700 font-bold mb-2" for="Affiche">
-                                        Affiche
+                                    <label class="block text-gray-700 font-bold mb-2" for="affiche">
+                                        affiche
                                     </label>
-                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Affiche" id="Affiche" type="file" required placeholder="Affiche">
+                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="affiche" id="affiche" type="file" required placeholder="affiche">
                                     </div>
                                     <div class="mb-4">
                                     <label class="block text-gray-700 font-bold mb-2" for="Date">
@@ -281,20 +273,35 @@ require('../config/functions.php');
                                             
                                             // Loop through the realisateurs and create an option for each one
                                             foreach ($realisateurs as $realisateur) { ?>
-                                                <option value="<?=$realisateur['id_realisateur']?>"><?=$realisateur['nom_realisateur']?></option>';
+                                                <option value="<?=$realisateur['id_realisateur']?>"><?=$realisateur['prenom_realisateur'] . ' ' . $realisateur['nom_realisateur']?></option>';
                                             <?php }
                                         ?>
                                     </select>
-                                    <p>Ou</p>
-                                    <label>
-                                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Realisateur" id="Realisateur" type="text" placeholder="Insérer un nouveau realisateur">
-                                    </label>
                                     </div>
                                     <div class="mb-4">
-                                    <label class="block text-gray-700 font-bold mb-2" for="Durée">
-                                        Durée
+                                        <label class="block text-gray-700 font-bold mb-2" for="Acteurs">
+                                            Acteurs
+                                        </label>
+                                        <?php
+                                            // Prepare and execute a SQL query to retrieve acteurs from the database
+                                            $query = $pdo->prepare('SELECT * FROM acteur');
+                                            $query->execute();
+                                            $acteurs = $query->fetchAll(PDO::FETCH_ASSOC);
+                                        ?>
+                                        <div class="flex flex-col max-h-36 overflow-auto">
+                                            <?php foreach ($acteurs as $acteur) { ?>
+                                                <label class="inline-flex items-center mt-3">
+                                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" name="Acteurs[]" value="<?=$acteur['id_acteur']?>">
+                                                    <span class="ml-2"><?=$acteur['prenom_acteur'] . ' ' . $acteur['nom_acteur']?></span>
+                                                </label>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                    <label class="block text-gray-700 font-bold mb-2" for="Duree">
+                                        Duree
                                     </label>
-                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Durée" id="Durée" type="text" required placeholder="Durée">
+                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="Duree" id="Duree" type="text" required placeholder="Duree">
                                     </div>
                                     <div class="mb-4">
                                     <label class="block text-gray-700 font-bold mb-2" for="Synopsis">

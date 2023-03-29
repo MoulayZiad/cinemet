@@ -20,3 +20,5 @@ $stmt->execute(['id' => $movie_id]);
 header("Location: ../crud.php?success=Movie%20deleted%20successfully");
 exit();
 ?>
+
+
